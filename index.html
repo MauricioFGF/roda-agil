@@ -38,33 +38,80 @@
 			margin: 12.35px 0px;
 			width:100%;
 			text-align: center;
-			color:#000;
+			color:#f93822;
 			font-size: 14px;
 			font-weight: bold;
 		}
 		.valueInput {
 			margin-right: 10px;
 		}
-		.linkbotao {    font-family: verdana, arial, sans-serif; 
-		   font-size: 10pt; 
+		.span{
+			position: absolute;
+			right: 10px;
+			height: 13px;
+			width: 13px;
+			background-color: white;
+			border: 1px solid gray;
+			border-radius: 2px;
+		}
+		.divAll input:checked ~ .span{
+			background-color: #f93822;
+			border: #f93822 1px solid;
+		}
+
+		.span::after{
+			display: none;
+			content: '';
+			position: absolute;
+		}
+
+		.divAll .span::after{
+			content: '';
+			position: relative;
+			left:3px;
+			top:1px;
+			height: 6px;
+			width: 4px;
+			transform: rotate(45deg);
+			border-right: 2px solid #fff;
+			border-bottom: 2px solid #fff;
+
+		}
+		.divAll input:checked ~ .span::after{
+			display: block;
+		}
+
+		.buttonContainer {
+			width: 100%;
+			display:flex;
+			justify-content: center;
+			align-items: center;
+			margin-top: 10px;
+		}
+		.linkbotao {    
+			font-family: Arial, verdana, sans-serif; 
+		   font-size: 12px; 
 		   font-weight: bold; 
-		   padding: 4px; 
-		   background-color: #ffffcc; 
-		   color: #666666; 
+		   padding: 4px 8px; 
+		   background-color: #f93822; 
+		   color: #FFF; 
+		   border: none;
+		   cursor: pointer;
 		   text-decoration: none; 
+		   border-radius: 5px;
+		   height: 25px;
+		   display: flex;
+		   justify-content: center;
+		   align-items: center;
+		   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+		}
+		.linkbotao:hover {  
+			transition: 0.3s;
+			transform: scale(1.1);
 		} 
-		.linkbotao:link, 
-		.linkbotao:visited { 
-		   border-top: 1px solid #cccccc; 
-		   border-bottom: 2px solid #666666; 
-		   border-left: 1px solid #cccccc; 
-		   border-right: 2px solid #666666; 
-		} 
-		.linkbotao:hover { 
-		    border-bottom: 1px solid #cccccc; 
-		   border-top: 2px solid #666666; 
-		   border-right: 1px solid #cccccc; 
-		   border-left: 2px solid #666666; 
+		.linkbotao:active {  
+			transition: 0.3s;
+			transform: scale(0.9);
 		} 
 	</style>
 </head>
@@ -79,8 +126,11 @@
 						<div style="margin-right:10px">Time</div>
 						<div><input type="text" value="Insole" name="time" maxlength="20"></div>
 					</div>
-					<label for="buttonValue" style="font-size:12px; display: flex; align-items: center; width: 120px;"> Editar Campos</label>
-					<input name="buttonValue" id="buttonValue"  type="checkbox"  onchange=checkEdit(this)>
+					<label for="buttonValue" style="font-size:12px; display: flex; align-items: center; width: 150px; position: relative;">
+						 Editar Campos
+						 <input name="buttonValue" style="margin-right:10px ;" id="buttonValue"  type="checkbox"  onchange=checkEdit(this)>
+						 <span class="span"></span>
+					</label>
 	  			</div>
 	  			<div  class="divAll">
 	  				<div style="margin-right:10px"	>Data</div>
@@ -290,12 +340,13 @@
 	  			</div>
 	  		</table>
 		</form>
+		<div class="buttonContainer">
+		  <a href="#" id="salvar" class="btn-salvar linkbotao" >Gerar Imagem</a>
+	  </div>
 	</div>
 	<br>
 	<canvas id="canvas-show" width="800" ></canvas>
 	<canvas id="canvas-out" width="1400" hidden="true"></canvas>
-	<a href="#" id="salvar" class="btn-salvar linkbotao" >Gerar Imagem</a>
-
 	<script>
 		var formEditor = document.querySelector("#graph-editor");
 		
