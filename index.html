@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		canvas{
+			float: left;
+		}
+		.divAll{
+			display: flex;
+			width:100%;
+			margin-right:10px
+		}
+		.editor{
+			width:100%;
+			display:flex;
+			justify-content: start;
+			align-items: start;
+			margin: auto;
+			font-family: Arial;
+			font-size: 1em;
+			float: left;
+		}
+		#graph-editor{
+			width:400px;
+		}
+		.title {
+			margin: 12.35px 0px;
+			width:100%;
+			text-align: center;
+			color:#000;
+			font-size: 14px;
+			font-weight: bold;
+		}
+		.valueInput {
+			margin-right: 10px;
+		}
+		.linkbotao {    font-family: verdana, arial, sans-serif; 
+		   font-size: 10pt; 
+		   font-weight: bold; 
+		   padding: 4px; 
+		   background-color: #ffffcc; 
+		   color: #666666; 
+		   text-decoration: none; 
+		} 
+		.linkbotao:link, 
+		.linkbotao:visited { 
+		   border-top: 1px solid #cccccc; 
+		   border-bottom: 2px solid #666666; 
+		   border-left: 1px solid #cccccc; 
+		   border-right: 2px solid #666666; 
+		} 
+		.linkbotao:hover { 
+		    border-bottom: 1px solid #cccccc; 
+		   border-top: 2px solid #666666; 
+		   border-right: 1px solid #cccccc; 
+		   border-left: 2px solid #666666; 
+		} 
+	</style>
+</head>
+<body>
+	
+	
+	<div class="editor">
+		<form id="graph-editor" action="/action_page.php">		
+	  		<div style="width:100%; display: block;">
+	  			<div class="divAll">
+					<div class="divAll">
+						<div style="margin-right:10px">Time</div>
+						<div><input type="text" value="Insole" name="time" maxlength="20"></div>
+					</div>
+					<label for="buttonValue" style="font-size:12px; display: flex; align-items: center; width: 120px;"> Editar Campos</label>
+					<input name="buttonValue" id="buttonValue"  type="checkbox"  onchange=checkEdit(this)>
+	  			</div>
+	  			<div  class="divAll">
+	  				<div style="margin-right:10px"	>Data</div>
+	  				<input type="date" name="date" id="datePicker">
+	  			</div>
+	  			<div colspan="2"  class="divAll">
+					<div id="title-1" class="title"></div>
+	  				 <input style="width:150px" class="title"   type="text" name="title-1" maxlength="15" onkeyup=checkInput(this)>
+	  				 <input style="width:150px" class="title"  type="text" name="subtitle-1" maxlength="20" onkeyup=checkInput(this)>
+	  			</div>
+	  			<div  class="divAll">
+					<div  class="divAll">
+						<div id="value-1"></div>
+						<div><input style="width:150px"  type="text" name="value-1" maxlength="15" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-11" maxlength="13" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="0" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll" >
+					<div  class="divAll">
+						<div id="value-2"></div>
+						<div><input style="width:150px"  type="text" name="value-2" maxlength="15" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-22" maxlength="5" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="1" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-3"></div>
+						<div><input style="width:150px"  type="text" name="value-3" maxlength="18" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-33" maxlength="18" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="2" min="1" max="5" value="1"></div>
+	  			</div>
+				
+	  			<div class="divAll" >
+					<div  class="divAll">
+						<div id="value-4"></div>
+						<div><input style="width:150px"  type="text" name="value-4" maxlength="18" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-44" maxlength="18" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="3" min="1" max="5" value="1"></div>
+	  			</div>
+				  <div class="divAll" >
+					<div  class="divAll">
+						<div id="value-5"></div>
+						<div><input style="width:150px"  type="text" name="value-441" maxlength="22" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-442" maxlength="18" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="4" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div colspan="2" class="divAll">
+					<div id="title-2" class="title"></div>
+					<input style="width:150px" class="title"  type="text" name="title-2" maxlength="15" onkeyup=checkInput(this)>
+					<input style="width:150px" class="title"  type="text" name="subtitle-2" maxlength="20" onkeyup=checkInput(this)>
+	  			</div>
+
+				<div class="divAll">
+					<div  class="divAll">
+						<div id="value-6"></div>
+						<div><input style="width:150px"  type="text" name="value-5" maxlength="18" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-55" maxlength="18" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="5" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-7"></div>
+						<div><input style="width:150px"  type="text" name="value-6" maxlength="19" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-66" maxlength="19" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="6" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-8"></div>
+						<div><input style="width:150px"  type="text" name="value-7" maxlength="20" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-77" maxlength="20" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="7" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-9"></div>
+						<div><input style="width:150px"  type="text" name="value-8" maxlength="18" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-88" maxlength="18" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="8" min="1" max="5" value="1"></div>
+	  			</div>
+				
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-10"></div>
+						<div><input style="width:150px"  type="text" name="value-9" maxlength="14" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-99" maxlength="18" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="9" min="1" max="5" value="1"></div>
+	  			</div>
+
+
+	  			<div colspan="2" class="divAll">
+					<div id="title-3" class="title"></div>
+					<input style="width:150px" class="title"  type="text" name="title-3" maxlength="15" onkeyup=checkInput(this)>
+					<input style="width:150px" class="title"  type="text" name="subtitle-3" maxlength="20" onkeyup=checkInput(this)>
+	  			</div>
+
+				  <div class="divAll">
+					<div  class="divAll">
+						<div id="value-11"></div>
+						<div><input style="width:150px"  type="text" name="value-111" maxlength="13" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-112" maxlength="17" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="10" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-12"></div>
+						<div><input style="width:150px"  type="text" name="value-113" maxlength="17" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-114" maxlength="17" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="11" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-13"></div>
+						<div><input style="width:150px"  type="text" name="value-115" maxlength="17" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-116" maxlength="18" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="12" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-14"></div>
+						<div><input style="width:150px"  type="text" name="value-117" maxlength="15" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-118" maxlength="13" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input  class="valueInput" type="number" name="13" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-15"></div>
+						<div><input style="width:150px"  type="text" name="value-119" maxlength="12" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-120" maxlength="12" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="14" min="1" max="5" value="1"></div>
+	  			</div>
+
+
+	  			<div colspan="2" class="divAll">
+					<div id="title-4" class="title"></div>
+					<input style="width:150px" class="title"  type="text" name="title-4" maxlength="15" onkeyup=checkInput(this)>
+					<input style="width:150px" class="title"  type="text" name="subtitle-4" maxlength="20" onkeyup=checkInput(this)>
+	  			</div>
+				  <div class="divAll">
+					<div  class="divAll">
+						<div id="value-16"></div>
+						<div><input style="width:150px"  type="text" name="value-121" maxlength="18" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-122" maxlength="17" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="15" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-17"></div>
+						<div><input style="width:150px"  type="text" name="value-123" maxlength="16" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-124" maxlength="16" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="16" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-18"></div>
+						<div><input style="width:150px"  type="text" name="value-125" maxlength="18" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  name="value-126" maxlength="17" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="17" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-19"></div>
+						<div><input style="width:150px"  type="text" name="value-127" maxlength="15" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-128" maxlength="13" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="18" min="1" max="5" value="1"></div>
+	  			</div>
+
+	  			<div class="divAll">
+					<div  class="divAll">
+						<div id="value-20"></div>
+						<div><input style="width:150px"  type="text" name="value-129" maxlength="15" onkeyup=checkInput(this)></div>
+						<div><input style="width:150px"  type="text" name="value-130" maxlength="13" onkeyup=checkInput(this)></div>
+					</div>
+	  				<div><input class="valueInput" type="number" name="19" min="1" max="5" value="1"></div>
+	  			</div>
+	  		</table>
+		</form>
+	</div>
+	<br>
+	<canvas id="canvas-show" width="800" ></canvas>
+	<canvas id="canvas-out" width="1400" hidden="true"></canvas>
+	<a href="#" id="salvar" class="btn-salvar linkbotao" >Gerar Imagem</a>
+
+	<script>
+		var formEditor = document.querySelector("#graph-editor");
+		
+		var results = [];
+		var canvasShow = document.querySelector("#canvas-show"); 
+		var canvasOut = document.querySelector("#canvas-out"); 
+		
+		// obtém o source da imagem
+		var imgData = canvasOut.toDataURL(); // por padrão, a imagem é PNG
+
+		formEditor.querySelector('#datePicker').value = new Date(new Date().setHours(0,0,0,0)).toISOString().slice(0,10)
+		
+		function checkInput (obj){
+			localStorage.setItem(obj.name,obj.value)
+		}
+
+		function checkEdit (obj){
+			let value = 0
+			if(obj.checked) value = 1
+			localStorage.setItem(obj.name,value)
+			formEditor.querySelector("input[name=title-1]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=title-2]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=title-3]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=title-4]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=subtitle-1]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=subtitle-2]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=subtitle-3]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=subtitle-4]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-1]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-11]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-2]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-22]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-3]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-33]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-4]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-44]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-441]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-442]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-5]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-55]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-6]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-66]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-7]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-77]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-8]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-88]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-9]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-99]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-111]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-112]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-113]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-114]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-115]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-116]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-117]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-118]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-119]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-120]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-121]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-122]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-123]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-124]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-125]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-126]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-127]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-128]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-129]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+			formEditor.querySelector("input[name=value-130]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+
+			formEditor.querySelector("#title-1").innerHTML = localStorage.getItem('title-1') || "Pessoas"
+			formEditor.querySelector("#title-1").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#title-2").innerHTML = localStorage.getItem('title-2') || "Experimente"
+			formEditor.querySelector("#title-2").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#title-3").innerHTML = localStorage.getItem('title-3') || "Segurança"
+			formEditor.querySelector("#title-3").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#title-4").innerHTML = localStorage.getItem('title-4') || "Valor"
+			formEditor.querySelector("#title-4").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+
+			formEditor.querySelector("#value-1").innerHTML = (localStorage.getItem('value-1') || "Colaboração e ") +  (localStorage.getItem('value-11') || "comunicação")
+			formEditor.querySelector("#value-1").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-2").innerHTML = (localStorage.getItem('value-2') || "Motivação e ") +  (localStorage.getItem('value-22') || "confiança")
+			formEditor.querySelector("#value-2").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-3").innerHTML = (localStorage.getItem('value-3') || "Autonomia e ") +  (localStorage.getItem('value-33') || "auto-organização")
+			formEditor.querySelector("#value-3").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-4").innerHTML = (localStorage.getItem('value-4') || "Kaizen ") +  (localStorage.getItem('value-44') || "Metrica")
+			formEditor.querySelector("#value-4").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-5").innerHTML = (localStorage.getItem('value-441') || "Interdisciplinaridade ") +  (localStorage.getItem('value-442') || "entre projetos")
+			formEditor.querySelector("#value-5").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-6").innerHTML = (localStorage.getItem('value-5') || "Práticas ") +  (localStorage.getItem('value-55') || ("Lean-Agile"))
+			formEditor.querySelector("#value-6").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-7").innerHTML = (localStorage.getItem('value-6') || "Métricas e ") +  (localStorage.getItem('value-66') || "ferramentas")
+			formEditor.querySelector("#value-7").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-8").innerHTML = (localStorage.getItem('value-7') || "Comprometimento ") +  (localStorage.getItem('value-77') || "com o produto")
+			formEditor.querySelector("#value-8").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-9").innerHTML = (localStorage.getItem('value-8') || "Compartilhamento ") +  (localStorage.getItem('value-88') || "conhecimento")
+			formEditor.querySelector("#value-9").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-10").innerHTML = (localStorage.getItem('value-9') || "Ritmo das " ) +  (localStorage.getItem('value-99') || "duas Entregas")
+			formEditor.querySelector("#value-10").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-11").innerHTML = (localStorage.getItem('value-111') || "Código Susten-") + ( localStorage.getItem('value-112') || "tável (refactoring)")
+			formEditor.querySelector("#value-11").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-12").innerHTML = (localStorage.getItem('value-113') || "Automações " )+ ( localStorage.getItem('value-114') || "(Pipeline)")
+			formEditor.querySelector("#value-12").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-13").innerHTML = (localStorage.getItem('value-115') || "Práticas BDD/TDD " )+  (localStorage.getItem('value-116') || "E Clean Code")
+			formEditor.querySelector("#value-13").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-14").innerHTML = (localStorage.getItem('value-117') || "Qualidade ") +  (localStorage.getItem('value-118') || "E2E")
+			formEditor.querySelector("#value-14").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-15").innerHTML = (localStorage.getItem('value-119') || "Práticas ") + ( localStorage.getItem('value-120') || "DevOps")
+			formEditor.querySelector("#value-15").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-16").innerHTML = (localStorage.getItem('value-121') || "Quebras de Stories, ") +  (localStorage.getItem('value-122') || "Features e Epics")
+			formEditor.querySelector("#value-16").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-17").innerHTML = (localStorage.getItem('value-123') || "User ") +  (localStorage.getItem('value-124') || "Experience")
+			formEditor.querySelector("#value-17").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-18").innerHTML = (localStorage.getItem('value-125') || "Entrega continua ") +  (localStorage.getItem('value-126') || "de Valor")
+			formEditor.querySelector("#value-18").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-19").innerHTML = (localStorage.getItem('value-127') || "Relacionamento ") +  (localStorage.getItem('value-128') || "com negócio")
+			formEditor.querySelector("#value-19").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+			formEditor.querySelector("#value-20").innerHTML = (localStorage.getItem('value-129')  || "Satisfação ") +  (localStorage.getItem('value-130') || "do cliente")
+			formEditor.querySelector("#value-20").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		}
+
+		formEditor.querySelector("input[name=title-1]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=title-2]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=title-3]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=title-4]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=subtitle-1]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=subtitle-2]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=subtitle-3]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=subtitle-4]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-1]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-11]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-2]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-22]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-3]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-33]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-4]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-44]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-441]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-442]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-5]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-55]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-6]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-66]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-7]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-77]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-8]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-88]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-9]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-99]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-111]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-112]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-113]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-114]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-115]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-116]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-117]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-118]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-119]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-120]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-121]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-122]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-123]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-124]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-125]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-126]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-127]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-128]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-129]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+		formEditor.querySelector("input[name=value-130]").style.display = localStorage.getItem('buttonValue') === "1" ? 'block' : 'none'
+
+		formEditor.querySelector("input[name=buttonValue]").checked = Boolean(parseInt(localStorage.getItem('buttonValue'))) || Boolean(0)
+		formEditor.querySelector("input[name=title-1]").value = localStorage.getItem('title-1') || "Pessoas"
+		formEditor.querySelector("input[name=title-2]").value = localStorage.getItem('title-2') || "Experimente"
+		formEditor.querySelector("input[name=title-3]").value = localStorage.getItem('title-3') || "Segurança"
+		formEditor.querySelector("input[name=title-4]").value = localStorage.getItem('title-4') || "Valor"
+		formEditor.querySelector("input[name=subtitle-1]").value = localStorage.getItem('subtitle-1') || "sensacionais"
+		formEditor.querySelector("input[name=subtitle-2]").value = localStorage.getItem('subtitle-2') || "e aprenda rápido"
+		formEditor.querySelector("input[name=subtitle-3]").value = localStorage.getItem('subtitle-3') || "um pré requisito"
+		formEditor.querySelector("input[name=subtitle-4]").value = localStorage.getItem('subtitle-4') || "a todo instante"
+		formEditor.querySelector("input[name=value-1]").value = localStorage.getItem('value-1') || "Colaboração e"
+		formEditor.querySelector("input[name=value-11]").value = localStorage.getItem('value-11') ||"comunicação"
+		formEditor.querySelector("input[name=value-2]").value = localStorage.getItem('value-2') ||"Motivação e"
+		formEditor.querySelector("input[name=value-22]").value = localStorage.getItem('value-22') || "confiança"
+		formEditor.querySelector("input[name=value-3]").value = localStorage.getItem('value-3') || "Autonomia e"
+		formEditor.querySelector("input[name=value-33]").value = localStorage.getItem('value-33') || "auto-organização"
+		formEditor.querySelector("input[name=value-4]").value = localStorage.getItem('value-4') || "Kaizen"
+		formEditor.querySelector("input[name=value-44]").value = localStorage.getItem('value-44') || "respeitoso"
+		formEditor.querySelector("input[name=value-441]").value = localStorage.getItem('value-441') || "Interdisciplinaridade"
+		formEditor.querySelector("input[name=value-442]").value = localStorage.getItem('value-442') || "entre projetos"
+		formEditor.querySelector("input[name=value-5]").value = localStorage.getItem('value-5') || "Práticas"
+		formEditor.querySelector("input[name=value-55]").value = localStorage.getItem('value-55') || "Lean-Agile"
+		formEditor.querySelector("input[name=value-6]").value = localStorage.getItem('value-6') || "Métricas e"
+		formEditor.querySelector("input[name=value-66]").value = localStorage.getItem('value-66') || "ferramentas"
+		formEditor.querySelector("input[name=value-7]").value = localStorage.getItem('value-7') || "Comprometimento"
+		formEditor.querySelector("input[name=value-77]").value = localStorage.getItem('value-77') || "com o produto"
+		formEditor.querySelector("input[name=value-8]").value = localStorage.getItem('value-8') || "Compartilhamento"
+		formEditor.querySelector("input[name=value-88]").value = localStorage.getItem('value-88') || "de conhecimento"
+		formEditor.querySelector("input[name=value-9]").value = localStorage.getItem('value-9') || "Ritmo das "
+		formEditor.querySelector("input[name=value-99]").value = localStorage.getItem('value-99') || "duas Entregas"
+		formEditor.querySelector("input[name=value-111]").value = localStorage.getItem('value-111') || "Código Susten-"
+		formEditor.querySelector("input[name=value-112]").value = localStorage.getItem('value-112') ||"tável (refactoring)"
+		formEditor.querySelector("input[name=value-113]").value = localStorage.getItem('value-113') || "Automações"
+		formEditor.querySelector("input[name=value-114]").value = localStorage.getItem('value-114') || "(Pipeline)"
+		formEditor.querySelector("input[name=value-115]").value = localStorage.getItem('value-115') || "Práticas BDD/TDD"
+		formEditor.querySelector("input[name=value-116]").value = localStorage.getItem('value-116') || "E Clean Code"
+		formEditor.querySelector("input[name=value-117]").value = localStorage.getItem('value-117') || " Qualidade"
+		formEditor.querySelector("input[name=value-118]").value = localStorage.getItem('value-118') || "E2E"
+		formEditor.querySelector("input[name=value-119]").value = localStorage.getItem('value-119') ||	"Práticas"
+		formEditor.querySelector("input[name=value-120]").value = localStorage.getItem('value-120') || "DevOps"
+		formEditor.querySelector("input[name=value-121]").value = localStorage.getItem('value-121') ||	"Quebras de Stories,"
+		formEditor.querySelector("input[name=value-122]").value = localStorage.getItem('value-122') || "Features e Epics"
+		formEditor.querySelector("input[name=value-123]").value = localStorage.getItem('value-123') ||	"User"
+		formEditor.querySelector("input[name=value-124]").value = localStorage.getItem('value-124') || "Experience"
+		formEditor.querySelector("input[name=value-125]").value = localStorage.getItem('value-125') || "Entrega continua"
+		formEditor.querySelector("input[name=value-126]").value = localStorage.getItem('value-126') || "de Valor"
+		formEditor.querySelector("input[name=value-127]").value = localStorage.getItem('value-127') || "Relacionamento"
+		formEditor.querySelector("input[name=value-128]").value = localStorage.getItem('value-128') || "com negócio"
+		formEditor.querySelector("input[name=value-129]").value = localStorage.getItem('value-129') || "Satisfação"
+		formEditor.querySelector("input[name=value-130]").value = localStorage.getItem('value-130') || "do cliente"
+
+		formEditor.querySelector("#title-1").innerHTML = localStorage.getItem('title-1') || "Pessoas"
+		formEditor.querySelector("#title-1").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#title-2").innerHTML = localStorage.getItem('title-2') || "Experimente"
+		formEditor.querySelector("#title-2").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#title-3").innerHTML = localStorage.getItem('title-3') || "Segurança"
+		formEditor.querySelector("#title-3").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#title-4").innerHTML = localStorage.getItem('title-4') || "Valor"
+		formEditor.querySelector("#title-4").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+
+		formEditor.querySelector("#value-1").innerHTML = (localStorage.getItem('value-1') || "Colaboração e ") +  (localStorage.getItem('value-11') || "comunicação")
+		formEditor.querySelector("#value-1").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-2").innerHTML = (localStorage.getItem('value-2') || "Motivação e ") +  (localStorage.getItem('value-22') || "confiança")
+		formEditor.querySelector("#value-2").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-3").innerHTML = (localStorage.getItem('value-3') || "Autonomia e ") +  (localStorage.getItem('value-33') || "auto-organização")
+		formEditor.querySelector("#value-3").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-4").innerHTML = (localStorage.getItem('value-4') || "Kaizen ") +  (localStorage.getItem('value-44') || "Metrica")
+		formEditor.querySelector("#value-4").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-5").innerHTML = (localStorage.getItem('value-441') || "Interdisciplinaridade ") +  (localStorage.getItem('value-442') || "entre projetos")
+		formEditor.querySelector("#value-5").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-6").innerHTML = (localStorage.getItem('value-5') || "Práticas ") +  (localStorage.getItem('value-55') || ("Lean-Agile"))
+		formEditor.querySelector("#value-6").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-7").innerHTML = (localStorage.getItem('value-6') || "Métricas e ") +  (localStorage.getItem('value-66') || "ferramentas")
+		formEditor.querySelector("#value-7").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-8").innerHTML = (localStorage.getItem('value-7') || "Comprometimento ") +  (localStorage.getItem('value-77') || "com o produto")
+		formEditor.querySelector("#value-8").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-9").innerHTML = (localStorage.getItem('value-8') || "Compartilhamento ") +  (localStorage.getItem('value-88') || "conhecimento")
+		formEditor.querySelector("#value-9").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-10").innerHTML = (localStorage.getItem('value-9') || "Ritmo das " ) +  (localStorage.getItem('value-99') || "duas Entregas")
+		formEditor.querySelector("#value-10").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-11").innerHTML = (localStorage.getItem('value-111') || "Código Susten-") + ( localStorage.getItem('value-112') || "tável (refactoring)")
+		formEditor.querySelector("#value-11").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-12").innerHTML = (localStorage.getItem('value-113') || "Automações " )+ ( localStorage.getItem('value-114') || "(Pipeline)")
+		formEditor.querySelector("#value-12").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-13").innerHTML = (localStorage.getItem('value-115') || "Práticas BDD/TDD " )+  (localStorage.getItem('value-116') || "E Clean Code")
+		formEditor.querySelector("#value-13").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-14").innerHTML = (localStorage.getItem('value-117') || "Qualidade ") +  (localStorage.getItem('value-118') || "E2E")
+		formEditor.querySelector("#value-14").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-15").innerHTML = (localStorage.getItem('value-119') || "Práticas ") + ( localStorage.getItem('value-120') || "DevOps")
+		formEditor.querySelector("#value-15").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-16").innerHTML = (localStorage.getItem('value-121') || "Quebras de Stories, ") +  (localStorage.getItem('value-122') || "Features e Epics")
+		formEditor.querySelector("#value-16").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-17").innerHTML = (localStorage.getItem('value-123') || "User ") +  (localStorage.getItem('value-124') || "Experience")
+		formEditor.querySelector("#value-17").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-18").innerHTML = (localStorage.getItem('value-125') || "Entrega continua ") +  (localStorage.getItem('value-126') || "de Valor")
+		formEditor.querySelector("#value-18").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-19").innerHTML = (localStorage.getItem('value-127') || "Relacionamento ") +  (localStorage.getItem('value-128') || "com negócio")
+		formEditor.querySelector("#value-19").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+		formEditor.querySelector("#value-20").innerHTML = (localStorage.getItem('value-129')  || "Satisfação ") +  (localStorage.getItem('value-130') || "do cliente")
+		formEditor.querySelector("#value-20").style.display = localStorage.getItem('buttonValue') === "1" ? 'none' : 'block'
+
+
+
+		
+
+		var results = [];
+		function changeResults(){
+			for(var i = 0; i < 20; i++){
+				results[i] = {value:formEditor.querySelector("input[name=\""+i+"\"]").value};
+			}
+		}
+		
+		function draw(canvas){
+
+			var cx    = canvas.getContext("2d");
+
+			var centerX = canvas.width/2;
+			canvas.height = 0.8125 * canvas.width;
+			var centerY = canvas.height/2;
+			var sizeControl = 0.065 * canvas.width;
+			
+			cx.save();
+
+			cx.fillStyle = "white";
+			cx.fillRect(0,0,canvas.width,canvas.height);
+			cx.rect(0,0,canvas.width,canvas.height);
+			cx.stroke();
+			changeResults();
+
+			colors = ["#FE0000","#FE0000","#FFFF00","#00FF01","#00FF01"];
+			var currentAngle = -0.5 * Math.PI;
+			var sliceAngle = 1/20 * 2 * Math.PI;
+			
+			for(var i = 5; i > 0; i--){
+				results.forEach(function(result){
+					color = result.value >= i? colors[i-1]: "white";
+					cx.beginPath();
+				
+					cx.arc(centerX, centerY, sizeControl * i,
+								 currentAngle, currentAngle + sliceAngle);
+					currentAngle += sliceAngle;
+					cx.lineTo(centerX, centerY);
+					cx.fillStyle = color;
+					cx.fill();
+					cx.stroke();
+				});
+			}
+			count = 0;
+			results.forEach(function(result){
+				if(count == 4 || count == 9 || count == 14 || count == 19){
+					var lineWidth = 6;
+				}else{
+					var lineWidth = 1;
+				}
+				count++;
+				cx.beginPath();
+				cx.arc(centerX, centerY, sizeControl * 6,
+							 currentAngle, currentAngle + sliceAngle, true);
+				currentAngle += sliceAngle;
+				cx.lineTo(centerX, centerY);
+				cx.lineWidth=lineWidth;
+				cx.stroke();
+			});
+
+			
+			results.forEach(function(result){
+				
+				cx.beginPath();
+			
+				cx.arc(centerX, centerY, sizeControl * 6,
+							 currentAngle, currentAngle + sliceAngle, true);
+				currentAngle += sliceAngle;
+				cx.lineWidth=10;
+				cx.strokeStyle = "white";
+				cx.stroke();
+			});
+
+			// Textos do gráfico
+			cx.font = (0.03125 * canvas.width) + "px  Arial";
+			cx.fillStyle = "#000";
+			cx.fillText(formEditor.querySelector("input[name=title-4]").value,canvas.width * 0.002,canvas.height * 0.038461538461538464);
+			
+			cx.font = (0.015 * canvas.width) + "px  Arial";
+			cx.fillText(formEditor.querySelector("input[name=subtitle-4]").value,canvas.width * 0.005,canvas.height * 0.059661538461538464);
+			
+			cx.font = (0.03125 * canvas.width) + "px  Arial";
+			cx.textAlign ="end";
+			cx.fillText(formEditor.querySelector("input[name=title-1]").value,canvas.width * 0.995,canvas.height * 0.038461538461538464);
+			cx.font = (0.015 * canvas.width) + "px  Arial";
+			cx.fillText(formEditor.querySelector("input[name=subtitle-1]").value,canvas.width * 0.995,canvas.height * 0.059461538461538464);
+
+			heightTitle = canvas.height * 0.9669230769230769;
+			heightSubTitle = canvas.height * 0.9899230769230769;
+
+			cx.font = (0.03125 * canvas.width) + "px  Arial";
+			cx.fillText(formEditor.querySelector("input[name=title-2]").value,canvas.width * 0.995, heightTitle);
+			cx.font = (0.015 * canvas.width) + "px  Arial";
+			cx.fillText(formEditor.querySelector("input[name=subtitle-2]").value,canvas.width * 0.995, heightSubTitle);
+			
+			
+			cx.font = (0.03125 * canvas.width) + "px  Arial";
+			cx.textAlign ="start";
+			cx.fillText(formEditor.querySelector("input[name=title-3]").value,canvas.width * 0.002, heightTitle);
+			cx.font = (0.015 * canvas.width) + "px  Arial";
+			cx.fillText(formEditor.querySelector("input[name=subtitle-3]").value,canvas.width * 0.005, heightSubTitle);
+			
+			
+			
+			// Cultura 
+			cx.font=(0.01425 * canvas.width) + "px Arial";
+			cx.textAlign ="start";
+			cx.fillText(formEditor.querySelector("input[name=value-1]").value,canvas.width * 0.51 ,canvas.height * 0.0269, 120);
+			cx.fillText(formEditor.querySelector("input[name=value-11]").value,canvas.width * 0.51 ,canvas.height * 0.0469, 80);
+
+			cx.fillText(formEditor.querySelector("input[name=value-2]").value,canvas.width * 0.64 ,canvas.height * 0.0607);
+			cx.fillText(formEditor.querySelector("input[name=value-22]").value,canvas.width * 0.64 ,canvas.height * 0.0807);
+
+			cx.fillText(formEditor.querySelector("input[name=value-3]").value,canvas.width * 0.73 ,canvas.height * 0.15);
+			cx.fillText(formEditor.querySelector("input[name=value-33]").value,canvas.width * 0.73,canvas.height * 0.17);
+
+			cx.fillText(formEditor.querySelector("input[name=value-4]").value,canvas.width * 0.82 ,canvas.height * 0.284);
+			cx.fillText(formEditor.querySelector("input[name=value-44]").value,canvas.width * 0.82 ,canvas.height * 0.304);
+
+			cx.fillText(formEditor.querySelector("input[name=value-441]").value,canvas.width * 0.83 ,canvas.height * 0.434);
+			cx.fillText(formEditor.querySelector("input[name=value-442]").value,canvas.width * 0.83 ,canvas.height * 0.454);
+
+			
+			// Organização 
+			cx.fillText(formEditor.querySelector("input[name=value-5]").value,canvas.width * 0.835 ,canvas.height * 0.564);
+			cx.fillText(formEditor.querySelector("input[name=value-55]").value,canvas.width * 0.835 ,canvas.height * 0.584);
+
+			cx.fillText(formEditor.querySelector("input[name=value-6]").value,canvas.width * 0.815 ,canvas.height * 0.6906923076923077);
+			cx.fillText(formEditor.querySelector("input[name=value-66]").value,canvas.width * 0.815 ,canvas.height * 0.7106923076923077);
+			
+			cx.fillText(formEditor.querySelector("input[name=value-7]").value,canvas.width * 0.75 ,canvas.height * 0.823076923076923);
+			cx.fillText(formEditor.querySelector("input[name=value-77]").value,canvas.width * 0.75 ,canvas.height * 0.843076923076923);
+
+			cx.fillText(formEditor.querySelector("input[name=value-8]").value,canvas.width * 0.64325 ,canvas.height * 0.9076923076923077);
+			cx.fillText(formEditor.querySelector("input[name=value-88]").value,canvas.width * 0.64325 ,canvas.height * 0.9276923076923077);
+
+			cx.fillText(formEditor.querySelector("input[name=value-9]").value,canvas.width * 0.5075 ,canvas.height * 0.9561538461538461);
+			cx.fillText(formEditor.querySelector("input[name=value-99]").value,canvas.width * 0.5075 ,canvas.height * 0.9761538461538461);
+
+
+			// Técnico 
+			cx.fillText(formEditor.querySelector("input[name=value-111]").value,canvas.width * 0.387375 ,canvas.height * 0.9561538461538461);
+			cx.fillText(formEditor.querySelector("input[name=value-112]").value,canvas.width * 0.362375 ,canvas.height * 0.9761538461538461);
+
+			cx.fillText(formEditor.querySelector("input[name=value-113]").value,canvas.width * 0.260625 ,canvas.height * 0.9153846153846154);
+			cx.fillText(formEditor.querySelector("input[name=value-114]").value,canvas.width * 0.250625 ,canvas.height * 0.9353846153846154);
+			
+			cx.fillText(formEditor.querySelector("input[name=value-115]").value,canvas.width * 0.13125 ,canvas.height * 0.8153846153846154);
+			cx.fillText(formEditor.querySelector("input[name=value-116]").value,canvas.width * 0.14375 ,canvas.height * 0.8353846153846154);
+			
+			cx.fillText(formEditor.querySelector("input[name=value-117]").value,canvas.width * 0.1 ,canvas.height * 0.6923076923076923);
+			cx.fillText(formEditor.querySelector("input[name=value-118]").value,canvas.width * 0.1 ,canvas.height * 0.7123076923076923);
+			
+			cx.fillText(formEditor.querySelector("input[name=value-119]").value,canvas.width * 0.07625 ,canvas.height * 0.5561538461538461);
+			cx.fillText(formEditor.querySelector("input[name=value-120]").value,canvas.width * 0.07625 ,canvas.height * 0.5761538461538461);
+
+			// Negócio 
+			cx.fillText(formEditor.querySelector("input[name=value-121]").value,canvas.width * 0.03125 ,canvas.height * 0.42846153846153846);
+			cx.fillText(formEditor.querySelector("input[name=value-122]").value,canvas.width * 0.0375 ,canvas.height * 0.44846153846153846);
+
+			cx.fillText(formEditor.querySelector("input[name=value-123]").value,canvas.width * 0.08 ,canvas.height * 0.2926153846153846);
+			cx.fillText(formEditor.querySelector("input[name=value-124]").value,canvas.width * 0.06875 ,canvas.height * 0.3126153846153846);
+			
+			//cx.fillText("Processo de",canvas.width * 0.14375 ,canvas.height * 0.16923076923076924);
+			//cx.fillText("Criação",canvas.width * 0.159375 ,canvas.height * 0.19230769230769232);
+			cx.fillText(formEditor.querySelector("input[name=value-125]").value,canvas.width * 0.13375 ,canvas.height * 0.16);
+			cx.fillText(formEditor.querySelector("input[name=value-126]").value,canvas.width * 0.149375 ,canvas.height * 0.18);
+			
+			//cx.fillText("Entrega de",canvas.width * 0.26875 ,canvas.height * 0.08076923076923077);
+			//cx.fillText("valor",canvas.width * 0.29375 ,canvas.height * 0.10384615384615385);
+			cx.fillText(formEditor.querySelector("input[name=value-127]").value,canvas.width * 0.24875 ,canvas.height * 0.07076923076923077);
+			cx.fillText(formEditor.querySelector("input[name=value-128]").value,canvas.width * 0.26075 ,canvas.height * 0.09076923076923077);
+
+
+			cx.fillText(formEditor.querySelector("input[name=value-129]").value,canvas.width * 0.37825 ,canvas.height * 0.026923076923076925);
+			cx.fillText(formEditor.querySelector("input[name=value-130]").value,canvas.width * 0.390375 ,canvas.height * 0.046923076923076925);
+
+
+			// Informações do time e data
+			cx.font=(0.0155 * canvas.width) + "px Arial";
+			cx.fillText("Time: "+formEditor.querySelector("input[name=time]").value,canvas.width * 0.0125 ,canvas.height * 0.09230769230769231);
+			cx.fillText("Data: "+ new Date(formEditor.querySelector("input[name=date]").value + "T12:00").toLocaleDateString('en-GB', {year:"2-digit", month:"2-digit", day:"2-digit"}),canvas.width * 0.0125 ,canvas.height * 0.11538461538461539);
+
+			imgData = canvas.toDataURL();
+			cx.restore();
+		}
+
+		formEditor.addEventListener("change", function(){
+			draw(canvasShow);
+		});
+		// salva imagem
+		document.getElementById('salvar').addEventListener('click', function(e){
+		    draw(canvasOut);
+		    this.href = imgData; // source
+		    this.download = 'Roda-Agil.png'; // nome da imagem
+		    return false;
+		});
+		
+		draw(canvasShow);
+	</script>
+	
+</body>
+</html>
